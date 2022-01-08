@@ -14,8 +14,8 @@ payLoad="-d '{\"name\": \"${appName}\", \"region\": \"us\", \"stack\": \"heroku-
 echo "Creating app=${appName}..."
 
 # Create App
-eval "curl -n $curlSettings $payLoad -X POST https://api.heroku.com/apps" > .config/response_create.json
-echo "Heroku-App-Create response saved in .config/response_create.json..."
+eval "curl $curlSettings $payLoad -X POST https://api.heroku.com/apps" > .config/response_create.json
+echo -e "Heroku-App-Create response saved in .config/response_create.json...\n"
 
 # Add Buildpack
 if [ -z $buildPack ]; then
@@ -24,12 +24,13 @@ read buildPack
 fi
 payLoad="-d '{\"updates\": [{\"buildpack\": \"https://github.com/heroku/heroku-buildpack-${buildPack}\"}]}'"
 echo "Installing buildpack=${buildPack}..."
-eval "curl -n $curlSettings $payLoad -X PUT https://api.heroku.com/apps/${appName}/buildpack-installations" > .config/response_buildpack.json
-echo "Heroku-Buildpack-Install response saved in .config/response_buildpack.json..."
+eval "curl $curlSettings $payLoad -X PUT https://api.heroku.com/apps/${appName}/buildpack-installations" > .config/response_buildpack.json
+echo -e "Heroku-Buildpack-Install response saved in .config/response_buildpack.json...\n"
 
 # Add Remote
 if [ -d .git ]; then
-git remote add heroku "https://git.heroku.com/{$appName}.git"
+git remote add heroku "https://git.heroku.com/${appName}.git"
+echo "Heroku Git Repo added successfully: https://git.heroku.com/${appName}.git"
 else
-echo -e "This is not a Git repository...\nHeroku Git Repo: https://git.heroku.com/{$appName}.git"
+echo -e "This is not a Git repository...\nHeroku Git Repo: https://git.heroku.com/${appName}.git"
 fi
