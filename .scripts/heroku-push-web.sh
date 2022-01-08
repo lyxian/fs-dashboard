@@ -27,7 +27,7 @@ git add requirements.txt
 fi
 
 git commit -m "deploy"
-read x
+
 git branch -M main
 git push -u heroku main
 if [ $? -eq 0 ]; then
