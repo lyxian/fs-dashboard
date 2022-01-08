@@ -19,7 +19,7 @@ echo "python-3.8.12" > runtime.txt
 git add runtime.txt
 fi
 
-if [-f requirements.txt] ; then
+if [-f requirements.txt ] ; then
 pip freeze > requirements.txt
 git add requirements.txt
 fi
