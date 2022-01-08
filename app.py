@@ -6,6 +6,7 @@ import json
 import os
 
 app = Dash(__name__)
+server = app.server()
 htmlObj = HtmlMaster()
 
 app.layout = html.Div(children = [
