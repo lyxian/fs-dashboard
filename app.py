@@ -33,14 +33,3 @@ app.layout = html.Div(children = [
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=8008)
-
-# dcc - graphs, sliders, dropdowns
-# dcc.Graph (args) - dict or plotly
-
-# html.Div (args) - children, style, className, id
-
-
-# dash_table :
-# style_cell updates the styling for the data cells & the header cells. 
-# To specify header styles, use style_header. 
-# To specify data cell styles, use style_data.
