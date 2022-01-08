@@ -21,8 +21,10 @@ git branch -M main
 git push -u heroku main
 if [ $? -eq 0 ]; then
 echo "=====Code deployed to Heroku successfully====="
+git branch -M heroku_${BRANCH}
 git checkout $BRANCH 
 git branch -D heroku_${BRANCH}
 else
-echo -e"=====Code not deployed to Heroku=====\nCheck source and re-deploy from branch..."
+git branch -M heroku_${BRANCH}
+echo -e "=====Code not deployed to Heroku=====\nCheck source and re-deploy from branch..."
 fi
