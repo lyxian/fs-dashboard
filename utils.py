@@ -37,7 +37,12 @@ def addInfo(data: dict) -> dict:
         'minPrice30d': re.search(r'fs_min_price_l30d:(.*?);', trackInfo).group(1) if 'fs_min_price_l30d' in trackInfo else 0
     }
 
+def filterItemsByCategory(category: str, items: dict) -> dict:
+    items = [{**keyInfo(item), **addInfo(item)} for item in items]
+    if category == 'All':
+        return pandas.DataFrame(items).loc[:, ORDERED_COLUMNS]
+    else:
+        return pandas.DataFrame([item for item in items if item['bizCategory'] == category]).loc[:, ORDERED_COLUMNS]
 
-data = [{**keyInfo(item), **addInfo(item)} for item in items]
-
-df = pandas.DataFrame(data).loc[:, ORDERED_COLUMNS]
+def formatFilename(filename: str) -> str:
+    return f'@ {", ".join(re.search(r"data/(.*):(.*?).json", filename).groups())}'
