@@ -17,12 +17,13 @@ class HtmlMaster():
     @property
     def HeaderTitle(self):
         return html.Div(children=[
-            html.P(children="🥑", className="header-emoji"),
+            html.P(children="🎮🎲", className="header-emoji"),
             html.H1(
                 children="Lazada Flash Sale Data", className="header-title"
             ),
             html.P(
-                children="@ 2022-01-07, 23H",
+                id='header-description',
+                # children=f"@ {name}",
                 className="header-description",
             ),
         ], className="header")
@@ -39,7 +40,7 @@ class HtmlMaster():
                 ],
                 value="Electronics & Appliances",
                 clearable=False,
-                # className="dropdown",
+                className="dropdown",
             ),
         ])
 

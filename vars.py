@@ -5,7 +5,8 @@ BIZ_CATEGORY = {
     4: 'Baby & Toys',
     5: 'Fashion & Sports',
     6: 'Groceries & Pets',
-    7: 'Lifestyle'
+    7: 'Lifestyle',
+    8: 'All'
 }
 
 ORDERED_COLUMNS = [
