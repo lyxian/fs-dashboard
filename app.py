@@ -56,4 +56,4 @@ def update_charts(category, index):
     return formatFilename(filename), df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0', port=8008)
+    app.run_server(debug=True, host='0.0.0.0', port=os.getenv('PORT', 8008))
