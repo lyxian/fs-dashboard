@@ -6,6 +6,7 @@ echo -n "DEBUG_MODE (y/n): "
 read DEBUG
 
 git checkout -b heroku_${BRANCH}
+git pull heroku main
 if [ `echo $DEBUG | grep -i y` ]; then 
 echo "web: python app.py" > Procfile
 else
