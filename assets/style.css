@@ -50,6 +50,11 @@ body {
   width: 250px;
 }
 
+.dropdown-1 {
+  /* max-width: auto; */
+  width: 180px;
+}
+
 .menu {
   height: 112px;
   width: 912px;

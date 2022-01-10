@@ -1,5 +1,5 @@
-from dash import Dash, dcc, html, dash_table
-from vars import BIZ_CATEGORY
+from dash import Dash, dcc, html, dash_table, Input, Output
+from vars import BIZ_CATEGORY, SORT_COLUMNS
 import os
 
 # Dashboard Layout
@@ -7,6 +7,7 @@ import os
 # | └-Title
 # | └-Dropdown (Category)
 # | └-Dropdown (DataIndex)
+# | └-Dropdown (ColumnSort)
 # └-Table (by Category)
 
 class HtmlMaster():
@@ -62,6 +63,39 @@ class HtmlMaster():
         ])
 
     @property
+    def HeaderDropdownColumn(self):
+        return html.Div(children=[
+            html.Div(children="Sort By", className="menu-title"),
+            dcc.Dropdown(
+                id="select-column",
+                options=[
+                    {"label": column, "value": column}
+                    for column in SORT_COLUMNS
+                ],
+                value="itemTitle",
+                clearable=False,
+                searchable=False,
+                className="dropdown-1",
+            ),
+        ])
+
+    @property
+    def HeaderDropdownAscending(self):
+        return html.Div(children=[
+            html.Div(children="Ascending", className="menu-title"),
+            dcc.Dropdown(
+                id="select-sort",
+                options=[
+                    {"label": asc, "value": asc}
+                    for asc in ['True', 'False']
+                ],
+                value='True',
+                searchable=False,
+                className="dropdown-1",
+            ),
+        ])
+
+    @property
     def HeaderDropdowns(self):
         return html.Div(children=[
             html.Div(children="Category", className="menu-title"),
@@ -88,3 +122,9 @@ class HtmlMaster():
                 className="dropdown",
             )
         ], className="menu")
+
+class CallbackMaster():
+    
+    def __init__(self, app):
+        self.app = app
+        pass
