@@ -56,17 +56,17 @@ def update_description(index):
         Input("select-sort", "value")
     ],
 )
-def update_table(category, index, column, asc):
+def update_table(category, index, column, orderBy):
     folderDir = 'data'
     filename = os.path.join(folderDir, sorted(os.listdir(folderDir))[int(index)])
     
     with open(filename, 'r') as file:
         items = json.load(file)
 
-    if not asc:
+    if not orderBy:
         df = filterItemsByCategory(category, items)
     else:
-        df = sortItemsByColumn(category, column, items, eval(asc))
+        df = sortItemsByColumn(category, column, items, orderBy)
 
     return df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
 

@@ -82,12 +82,12 @@ class HtmlMaster():
     @property
     def HeaderDropdownAscending(self):
         return html.Div(children=[
-            html.Div(children="Ascending", className="menu-title"),
+            html.Div(children="Order By", className="menu-title"),
             dcc.Dropdown(
                 id="select-sort",
                 options=[
-                    {"label": asc, "value": asc}
-                    for asc in ['True', 'False']
+                    {"label": val, "value": val}
+                    for val in ['Ascending', 'Descending']
                 ],
                 value='True',
                 searchable=False,
