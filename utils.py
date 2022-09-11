@@ -5,11 +5,6 @@ import re
 
 from vars import BIZ_CATEGORY, ORDERED_COLUMNS
 
-filename = 'data/2022-01-07:23H.json'
-
-with open(filename, 'r') as file:
-    items = json.load(file)
-
 def getCategory(nums):
     return ', '.join([BIZ_CATEGORY[num] for num in nums])
 
@@ -51,10 +46,5 @@ def sortItemsByColumn(category: str, column: str, items: dict, orderBy: str) -> 
     items = [{**keyInfo(item), **addInfo(item)} for item in items]
     if category != 'All':
         items = [item for item in items if item['bizCategory'] == category]
-    return pandas.DataFrame(sorted(items, key=lambda x: eval(x[column].rstrip(' %')) if column != 'itemTitle' else x[column], reverse=(orderBy!='Ascending'))).loc[:, ORDERED_COLUMNS]
-
-# ======
-def getItems():
-    with open('data/2022-01-07:23H.json', 'r') as file:
-        items = json.load(file)
-    return [{**keyInfo(item), **addInfo(item)} for item in items]
+    return pandas.DataFrame(sorted(items, key=lambda x: x[column] if column == 'itemTitle' else eval(x[column].rstrip(' %')) if isinstance(x[column], str) else x[column], reverse=(orderBy!='Ascending'))).loc[:, ORDERED_COLUMNS]
+    

@@ -1,12 +1,14 @@
 BIZ_CATEGORY = {
-    1: 'Electronics & Appliances',
-    2: 'Health & Beauty',
-    3: 'Home & Living',
-    4: 'Baby & Toys',
-    5: 'Fashion & Sports',
-    6: 'Groceries & Pets',
-    7: 'Lifestyle',
-    8: 'All'
+    1: 'Health & Beauty',
+    2: 'Fashion & Sports',
+    3: 'Electronics & Appliances',
+    4: 'Home & Living',
+    5: 'Lifestyle',
+    6: 'Digital Accessories',
+    7: 'Baby & Toys',
+    8: 'Redmart',
+    9: 'Digital Vouchers',
+    10: 'All',
 }
 
 ORDERED_COLUMNS = [
