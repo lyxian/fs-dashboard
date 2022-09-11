@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, dash_table, Output, Input
 from assets import HtmlMaster
 
-from utils import filterItemsByCategory, formatFilename, sortItemsByColumn
+from utils import filterItemsByCategory, formatFilename, sortItemsByColumn, searchData
 import json
 import os
 
@@ -40,7 +40,7 @@ app.layout = html.Div(children = [
 )
 def update_description(index):
     folderDir = 'data'
-    filename = os.path.join(folderDir, sorted(os.listdir(folderDir))[int(index)])
+    filename = os.path.join(folderDir, sorted(searchData())[int(index)])
     
     return formatFilename(filename)
 
@@ -68,7 +68,8 @@ def update_table(category, index, column, orderBy):
     else:
         df = sortItemsByColumn(category, column, items, orderBy)
 
-    return df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
+    columnFormat = [{"name": i, "id": i} for i in df.columns[:-1]] + [{"name": "itemUrl", "id": "itemUrl", "presentation": "markdown", "type": "text"}]
+    return df.to_dict('records'), columnFormat
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=os.getenv('PORT', 8008))

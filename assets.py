@@ -1,6 +1,6 @@
 from dash import Dash, dcc, html, dash_table, Input, Output
 from vars import BIZ_CATEGORY, SORT_COLUMNS
-import os
+from utils import searchData
 
 # Dashboard Layout
 # ├-Header
@@ -53,7 +53,7 @@ class HtmlMaster():
                 id="index-filter",
                 options=[
                     {"label": index, "value": index}
-                    for index in range(len(os.listdir('data')))
+                    for index in range(len(searchData()))
                 ],
                 value="0",
                 clearable=False,
@@ -114,7 +114,7 @@ class HtmlMaster():
                 id="index-filter",
                 options=[
                     {"label": index, "value": index}
-                    for index in range(len(os.listdir('data')))
+                    for index in range(len(searchData()))
                 ],
                 value="0",
                 clearable=False,

@@ -1,9 +1,9 @@
 from urllib.parse import unquote
 import pandas
-import json 
+import os
 import re
 
-from vars import BIZ_CATEGORY, ORDERED_COLUMNS
+from vars import BIZ_CATEGORY, ORDERED_COLUMNS, DATA_DIR
 
 def getCategory(nums):
     return ', '.join([BIZ_CATEGORY[num] for num in nums])
@@ -29,7 +29,8 @@ def addInfo(data: dict) -> dict:
         'bizCategory': getCategory(data['bizCategory']),
         'soldRatio': f'{100*data["itemSoldCnt"]/data["itemTotalStock"]:0.2f} %',
         'itemDiscount': f'{itemDiscount:.2f} %',
-        'minPrice30d': re.search(r'fs_min_price_l30d:(.*?);', trackInfo).group(1) if 'fs_min_price_l30d' in trackInfo else 0
+        'minPrice30d': re.search(r'fs_min_price_l30d:(.*?);', trackInfo).group(1) if 'fs_min_price_l30d' in trackInfo else 0,
+        'itemUrl': f'[Link]({data["itemUrl"]})'
     }
 
 def filterItemsByCategory(category: str, items: dict) -> dict:
@@ -47,4 +48,6 @@ def sortItemsByColumn(category: str, column: str, items: dict, orderBy: str) -> 
     if category != 'All':
         items = [item for item in items if item['bizCategory'] == category]
     return pandas.DataFrame(sorted(items, key=lambda x: x[column] if column == 'itemTitle' else eval(x[column].rstrip(' %')) if isinstance(x[column], str) else x[column], reverse=(orderBy!='Ascending'))).loc[:, ORDERED_COLUMNS]
-    
+
+def searchData():
+    return {filename for filename in os.listdir(DATA_DIR) if re.search(r'.*\.json$', filename)}

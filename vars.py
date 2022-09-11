@@ -23,7 +23,8 @@ ORDERED_COLUMNS = [
     'itemDiscount',
     'itemPrice',
     'itemRatingScore',
-    'itemReviews'
+    'itemReviews',
+    'itemUrl'
 ]
 
 SORT_COLUMNS = [
@@ -38,3 +39,5 @@ SORT_COLUMNS = [
     'itemRatingScore',
     'itemReviews'
 ]
+
+DATA_DIR = 'data'

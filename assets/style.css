@@ -86,6 +86,7 @@ body {
   color: #079a82;
 }
 
-/* p {
+p a {
+  font-family: monospace;
   text-align : center;
-} */
+}
