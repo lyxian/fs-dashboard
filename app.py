@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, dash_table, Output, Input
 from assets import HtmlMaster
 
-from utils import filterItemsByCategory, formatFilename
+from utils import filterItemsByCategory, formatFilename, sortItemsByColumn
 import json
 import os
 
@@ -16,6 +16,8 @@ app.layout = html.Div(children = [
     html.Div(children = [
         htmlObj.HeaderDropdownCategory,
         htmlObj.HeaderDropdownIndex,
+        htmlObj.HeaderDropdownColumn,
+        htmlObj.HeaderDropdownAscending,
         # htmlObj.HeaderDropdowns
     ], className="menu"),
     html.Div(children = [
@@ -34,26 +36,39 @@ app.layout = html.Div(children = [
 ])
 
 @app.callback(
+    Output('header-description', 'children'), [Input("index-filter", "value")]
+)
+def update_description(index):
+    folderDir = 'data'
+    filename = os.path.join(folderDir, sorted(os.listdir(folderDir))[int(index)])
+    
+    return formatFilename(filename)
+
+@app.callback(
     [
-        Output("header-description", "children"),
         Output("table", "data"),
         Output("table", "columns"),
     ],
     [
         Input("category-filter", "value"),
-        Input("index-filter", "value")
+        Input("index-filter", "value"),
+        Input("select-column", "value"),
+        Input("select-sort", "value")
     ],
 )
-def update_charts(category, index):
+def update_table(category, index, column, orderBy):
     folderDir = 'data'
     filename = os.path.join(folderDir, sorted(os.listdir(folderDir))[int(index)])
     
     with open(filename, 'r') as file:
         items = json.load(file)
 
-    df = filterItemsByCategory(category, items)
+    if not orderBy:
+        df = filterItemsByCategory(category, items)
+    else:
+        df = sortItemsByColumn(category, column, items, orderBy)
 
-    return formatFilename(filename), df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
+    return df.to_dict('records'), [{"name": i, "id": i} for i in df.columns]
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=os.getenv('PORT', 8008))

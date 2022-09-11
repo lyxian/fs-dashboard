@@ -46,3 +46,15 @@ def filterItemsByCategory(category: str, items: dict) -> dict:
 
 def formatFilename(filename: str) -> str:
     return f'@ {", ".join(re.search(r"data/(.*):(.*?).json", filename).groups())}'
+
+def sortItemsByColumn(category: str, column: str, items: dict, orderBy: str) -> dict:
+    items = [{**keyInfo(item), **addInfo(item)} for item in items]
+    if category != 'All':
+        items = [item for item in items if item['bizCategory'] == category]
+    return pandas.DataFrame(sorted(items, key=lambda x: eval(x[column].rstrip(' %')) if column != 'itemTitle' else x[column], reverse=(orderBy!='Ascending'))).loc[:, ORDERED_COLUMNS]
+
+# ======
+def getItems():
+    with open('data/2022-01-07:23H.json', 'r') as file:
+        items = json.load(file)
+    return [{**keyInfo(item), **addInfo(item)} for item in items]

@@ -14,6 +14,19 @@ ORDERED_COLUMNS = [
     'isHot',
     'itemTitle',
     'soldRatio',
+    'itemSoldCnt',
+    'itemTotalStock',
+    'minPrice30d',
+    'itemDiscountPrice',
+    'itemDiscount',
+    'itemPrice',
+    'itemRatingScore',
+    'itemReviews'
+]
+
+SORT_COLUMNS = [
+    'itemTitle',
+    'soldRatio',
     'itemDiscount',
     'minPrice30d',
     'itemSoldCnt',
