@@ -86,7 +86,15 @@ body {
   color: #079a82;
 }
 
-p a {
-  font-family: monospace;
+p {
   text-align : center;
 }
+
+a {
+  font-family: monospace;
+}
+
+/* .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td div.dash-cell-value.cell-markdown .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th div.dash-cell-value.cell-markdown {
+  font-family: monospace;
+  text-align : center;
+} */
